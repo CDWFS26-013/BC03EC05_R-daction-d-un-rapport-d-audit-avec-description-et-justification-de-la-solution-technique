@@ -14,6 +14,10 @@ resource "docker_container" "vm" {
   memory     = each.value.mem_max
   command    = ["sleep", "infinity"]
 
+  ports {
+    internal = 22
+    external = null
+  }
 
   lifecycle {
     precondition {
@@ -22,3 +26,4 @@ resource "docker_container" "vm" {
     }
   }
 }
+
