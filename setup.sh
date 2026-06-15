@@ -3,6 +3,38 @@
 set -e
 
 echo "=== Gestionnaire de Cloud Local ==="
+echo "1) Créer une ressource"
+echo "2) Supprimer une ressource"
+read -p "Choix : " action
+
+if [[ "$action" == "2" ]]; then
+    echo "=== Suppression d'une ressource ==="
+    read -p "Type de ressource à supprimer (vm/db) : " resource_type
+    read -p "Nom/identifiant de la ressource : " resource_name
+
+    case "$resource_type" in
+        vm)
+            echo "Suppression de la VM '$resource_name'..."
+            docker rm -f "$resource_name" 2>/dev/null && echo "VM supprimée." || echo "Erreur : VM introuvable."
+            ;;
+        db)
+            echo "Suppression de l'instance de base de données '$resource_name'..."
+            docker rm -f "$resource_name" 2>/dev/null && echo "Instance supprimée." || echo "Erreur : instance introuvable."
+            ;;
+        *)
+            echo "Type de ressource inconnu."
+            exit 1
+            ;;
+    esac
+
+    exit 0
+fi
+
+if [[ "$action" != "1" ]]; then
+    echo "Choix invalide."
+    exit 1
+fi
+
 read -p "Souhaitez-vous créer une nouvelle VM ? (o/n) : " create_vm
 
 if [[ "$create_vm" == "o" || "$create_vm" == "O" ]]; then
