@@ -1,8 +1,3 @@
-variable "os" {
-  description = "Système d'exploitation choisi : ubuntu ou arch"
-  type        = string
-}
-
 locals {
   image_map = {
     ubuntu = docker_image.ubuntu.image_id
@@ -11,9 +6,10 @@ locals {
 }
 
 resource "docker_container" "vm" {
-  name    = "vm-${var.os}"
-  image   = lookup(local.image_map, var.os, null)
-  command = ["sleep", "infinity"]
+  name       = "vm-${var.os}"
+  image      = lookup(local.image_map, var.os, null)
+  cpu_shares = var.cpu_max
+  memory     = var.mem_max
 
   lifecycle {
     precondition {
