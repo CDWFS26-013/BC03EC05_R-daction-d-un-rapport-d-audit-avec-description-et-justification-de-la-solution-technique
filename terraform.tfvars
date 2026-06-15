@@ -10,3 +10,6 @@ instances = {
     mem_max = 1024
   }
 }
+
+ssh_username = "devuser"
+ssh_password = "ChangeMe123!"

@@ -6,3 +6,14 @@ variable "instances" {
     mem_max = number
   }))
 }
+
+variable "ssh_username" {
+  description = "Nom d'utilisateur SSH par défaut"
+  type        = string
+}
+
+variable "ssh_password" {
+  description = "Mot de passe SSH par défaut"
+  type        = string
+  sensitive   = true
+}
