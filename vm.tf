@@ -12,6 +12,8 @@ resource "docker_container" "vm" {
   image      = lookup(local.image_map, each.value.os, null)
   cpu_shares = each.value.cpu_max
   memory     = each.value.mem_max
+  command    = ["sleep", "infinity"]
+
 
   lifecycle {
     precondition {
