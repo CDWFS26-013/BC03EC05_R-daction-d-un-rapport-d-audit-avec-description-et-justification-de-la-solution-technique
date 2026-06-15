@@ -6,15 +6,17 @@ locals {
 }
 
 resource "docker_container" "vm" {
-  name       = "vm-${var.os}"
-  image      = lookup(local.image_map, var.os, null)
-  cpu_shares = var.cpu_max
-  memory     = var.mem_max
+  for_each = var.instances
+
+  name       = "vm-${each.key}"
+  image      = lookup(local.image_map, each.value.os, null)
+  cpu_shares = each.value.cpu_max
+  memory     = each.value.mem_max
 
   lifecycle {
     precondition {
-      condition     = contains(["ubuntu", "arch"], var.os)
-      error_message = "L'OS '${var.os}' n'est pas supporté. Choisissez 'ubuntu' ou 'arch'."
+      condition     = contains(["ubuntu", "arch"], each.value.os)
+      error_message = "L'OS '${each.value.os}' (instance ${each.key}) n'est pas supporté."
     }
   }
 }
