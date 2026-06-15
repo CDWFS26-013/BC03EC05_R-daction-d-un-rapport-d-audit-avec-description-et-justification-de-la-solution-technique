@@ -13,3 +13,8 @@ instances = {
 
 ssh_username = "devuser"
 ssh_password = "ChangeMe123!"
+
+db_username     = "admin"
+db_password     = "DbPass123!"
+create_postgres = true
+create_mariadb  = true

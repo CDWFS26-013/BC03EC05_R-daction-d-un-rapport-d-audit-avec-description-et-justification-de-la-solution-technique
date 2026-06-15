@@ -17,3 +17,24 @@ variable "ssh_password" {
   type        = string
   sensitive   = true
 }
+
+variable "db_username" {
+  description = "Nom d'utilisateur de la base de données"
+  type        = string
+}
+
+variable "db_password" {
+  description = "Mot de passe de la base de données"
+  type        = string
+  sensitive   = true
+}
+
+variable "create_postgres" {
+  type    = bool
+  default = false
+}
+
+variable "create_mariadb" {
+  type    = bool
+  default = false
+}
