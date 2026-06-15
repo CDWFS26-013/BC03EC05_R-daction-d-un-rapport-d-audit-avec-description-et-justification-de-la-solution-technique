@@ -29,3 +29,22 @@ if [[ "$create_vm" == "o" || "$create_vm" == "O" ]]; then
     echo "  Clé pub.  : $ssh_key_path"
     echo "  Username  : $username"
 fi
+
+read -p "Souhaitez-vous créer une instance de base de données ? (o/n) : " create_db
+
+if [[ "$create_db" == "o" || "$create_db" == "O" ]]; then
+    read -p "Type de moteur (postgres/mariadb) : " db_engine
+    read -p "Nom d'utilisateur de la base de données : " db_username
+    read -sp "Mot de passe de la base de données : " db_password
+    echo ""
+
+    if [[ "$db_engine" != "postgres" && "$db_engine" != "mariadb" ]]; then
+        echo "Erreur : moteur non supporté. Choisissez 'postgres' ou 'mariadb'."
+        exit 1
+    fi
+
+    echo ""
+    echo "Récapitulatif de la demande de base de données :"
+    echo "  Moteur    : $db_engine"
+    echo "  Username  : $db_username"
+fi
